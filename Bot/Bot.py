@@ -1,6 +1,7 @@
 import telegram
 import os
 import subprocess
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
 
 TELEGRAM = './Configuracion/Bot_telegram.txt'
@@ -57,7 +58,6 @@ def llamadaSistema(entrada):
     return salida # Devolvemos la respuesta al comando ejecutado
 
 
-async def ls(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE,):
-    	
+async def ls(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE,):    	
 	_ls = llamadaSistema("ls") # Llamada al sistema
 	await context.bot.send_message(chat_id=update.effective_chat.id, text='Correo mandado')
