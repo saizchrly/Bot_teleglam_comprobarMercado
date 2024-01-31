@@ -64,7 +64,7 @@ def llamadasSistemaSudo(comando: str):
             for line in f.readlines():
                 contrasena=line.strip('\n')
                 
-    proc = subprocess.Popen(comando, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    proc = subprocess.Popen(Sudocomando, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     proc.stdin.write(contrasena.encode('utf-8'))
     proc.stdin.close()
 
