@@ -61,20 +61,15 @@ def llamadaSistema(entrada):
 
     return salida # Devolvemos la respuesta al comando ejecutado
 
-def llamadasSistemaSudo(comando: str):
-    Sudocomando='sudo '+ comando
-    contrasena= ''
-    with open(SUDO, 'r') as f:
-            for line in f.readlines():
-                contrasena=line.strip('\n')
-                
+def llamadasSistemaSudo(comando: str, contrasena):
+    Sudocomando='sudo '+ comando                
     proc = subprocess.Popen(Sudocomando, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     proc.stdin.write(contrasena.encode('utf-8'))
     proc.stdin.close()
 
 async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-	
-	a = llamadasSistemaSudo('reboot') # Llamada al sistema con sudo
+	args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
+	a = llamadasSistemaSudo('reboot', args[0]) # Llamada al sistema con sudo
 	await context.bot.send_message(chat_id=update.effective_chat.id, text='Reboot, realizado con exito.\nPara confirmar que el bot vuelve a estar operativo use /start')
 
 def leerLineas(ruta):
@@ -95,5 +90,5 @@ async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     
 async def addAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    args = context.args
+    args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
     await context.bot.send_message(chat_id=update.effective_chat.id, text=args[0])

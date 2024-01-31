@@ -13,7 +13,7 @@ def main(bot):
     # Asociamos manejadores para cada comando reconocible
     dp.add_handler(CommandHandler('help', BotC.help))
     dp.add_handler(CommandHandler('start', BotC.start))
-    dp.add_handler(CommandHandler('reboot', BotC.reboot))
+    dp.add_handler(CommandHandler('reboot', BotC.reboot, has_args=True))
     dp.add_handler(CommandHandler('acciones', BotC.acciones))
     dp.add_handler(CommandHandler('accionesAdd', BotC.addAcciones, has_args=True))
 
