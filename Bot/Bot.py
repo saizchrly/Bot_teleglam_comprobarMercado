@@ -41,7 +41,7 @@ async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
         update (telegram.Update): constructor del bot
         context (ContextTypes.DEFAULT_TYPE): tipo de contexto
     """
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Soy un bot, y estoy operativo.")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Soy un bot, y estoy operativo.\nSi necesita ayuda escriba /help.")
 
 
 async def help(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
@@ -104,5 +104,24 @@ async def addAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYP
                 f.write(accion+'\n')
     f.close()
     texto = leerAcciones()
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
+    
+async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+    args = context.args
+    acciones = leerLineas(ACC)
+    
+    for x in range(len(args)):
+        args[x]=args[x].upper()
+        if args[x] in acciones:
+            acciones.remove(args[x])
+    
+    texto=''
+    with open(ACC, 'w') as f:
+        for x in acciones:
+            accion=x.upper()
+            f.write(accion+'\n')
+            texto=texto+x+'\n'
+    f.close()
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
