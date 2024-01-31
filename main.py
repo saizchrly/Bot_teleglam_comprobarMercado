@@ -15,7 +15,7 @@ def main(bot):
     dp.add_handler(CommandHandler('help', BotC.help))
     dp.add_handler(CommandHandler('start', BotC.start))
     dp.add_handler(CommandHandler('reboot', BotC.reboot))
- 
+
     # Iniciamos el bot
     dp.run_polling()
     # Actualizamos el estado del bot (bloquea la ejecucion a la espera de mensajes)
