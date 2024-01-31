@@ -1,3 +1,3 @@
 /start -> Este comando tiene el proposito de saber si el bot esta operativo o no.
 /help -> Comando usado para mostrar el menú de ayuda al usuario, el menú actual.
-
+/reboot -> Este comando tiene el proposito de reinicial el dispositivo donde se encuentra alojado nuesto bot
