@@ -15,6 +15,7 @@ def main(bot):
     dp.add_handler(CommandHandler('help', BotC.help))
     dp.add_handler(CommandHandler('start', BotC.start))
     dp.add_handler(CommandHandler('reboot', BotC.reboot))
+    dp.add_handler(CommandHandler('acciones', BotC.acciones))
 
     # Iniciamos el bot
     dp.run_polling()

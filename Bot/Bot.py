@@ -6,6 +6,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Application, C
 TELEGRAM = './Configuracion/Bot_telegram.txt'
 HELP='./Configuracion/Help_config.txt'
 SUDO='./Configuracion/Sudo_config.txt'
+ACC='./Configuracion/Acciones_config.txt'
 
 class Bot:
     """*+
@@ -72,3 +73,20 @@ async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE,):
 	
 	a = llamadasSistemaSudo('reboot') # Llamada al sistema con sudo
 	await context.bot.send_message(chat_id=update.effective_chat.id, text='Reboot, realizado con exito.\nPara confirmar que el bot vuelve a estar operativo use /start')
+
+def leerLineas(ruta):
+    linea=[]
+    with open(ruta, 'r') as f:
+            for line in f.readlines():
+                linea.append(line.strip('\n'))
+    return linea
+
+async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+    acciones=[]
+    texto=''
+    acciones=leerLineas(ACC)
+    
+    for x in acciones:
+        texto=x+'\n'
+        
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
