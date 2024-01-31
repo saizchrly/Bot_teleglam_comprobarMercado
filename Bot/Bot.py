@@ -68,7 +68,7 @@ def llamadasSistemaSudo(comando: str):
     proc.stdin.write(contrasena.encode('utf-8'))
     proc.stdin.close()
 
-async def ls(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE,):
+async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE,):
 	
-	_ls = llamadaSistema("ls") # Llamada al sistema
-	await context.bot.send_message(chat_id=update.effective_chat.id, text=_ls)
+	a = llamadasSistemaSudo('reboot') # Llamada al sistema con sudo
+	await context.bot.send_message(chat_id=update.effective_chat.id, text='Reboot, realizado con exito.\nPara confirmar que el bot vuelve a estar operativo use /start')

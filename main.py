@@ -14,7 +14,7 @@ def main(bot):
     # Asociamos manejadores para cada comando reconocible
     dp.add_handler(CommandHandler('help', BotC.help))
     dp.add_handler(CommandHandler('start', BotC.start))
-    dp.add_handler(CommandHandler('ls', BotC.ls))
+    dp.add_handler(CommandHandler('reboot', BotC.reboot))
  
     # Iniciamos el bot
     dp.run_polling()
