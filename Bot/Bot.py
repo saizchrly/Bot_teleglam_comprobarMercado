@@ -45,9 +45,12 @@ async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def help(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    
-    
-    await context.bot.send_message(chat_id=update.effective_chat.id, text='WIP')
+    texto=''
+    Lineas=leerLineas(HELP)
+    for line in Lineas:
+        texto=texto+line+'\n'
+       
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
 
 def llamadaSistema(entrada):
     salida = "" # Creamos variable vacia
@@ -87,6 +90,6 @@ async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     acciones=leerLineas(ACC)
     
     for x in acciones:
-        texto=x+'\n'
+        texto=texto+x+'\n'
         
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
