@@ -77,18 +77,32 @@ def leerLineas(ruta):
     with open(ruta, 'r') as f:
             for line in f.readlines():
                 linea.append(line.strip('\n'))
+    f.close()
     return linea
 
-async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+
+def leerAcciones():
     acciones=[]
     texto=''
     acciones=leerLineas(ACC)
     
     for x in acciones:
         texto=texto+x+'\n'
-        
+    return texto
+
+async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+    texto = leerAcciones()        
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     
 async def addAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=args[0])
+    acciones=leerLineas(ACC)
+    with open(ACC, 'a') as f:
+        for x in args:
+            accion=x.upper()
+            if accion not in acciones:
+                f.write(accion+'\n')
+    f.close()
+    texto = leerAcciones()
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
