@@ -7,7 +7,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Application, C
 
 
 def main(bot):
-    args=[]
     #obtenemos los datos del bot
     dp  = Application.builder().token(bot.Token).build()
  
@@ -16,6 +15,7 @@ def main(bot):
     dp.add_handler(CommandHandler('start', BotC.start))
     dp.add_handler(CommandHandler('reboot', BotC.reboot))
     dp.add_handler(CommandHandler('acciones', BotC.acciones))
+    dp.add_handler(CommandHandler('accionesAdd', BotC.addAcciones, has_args=True))
 
     # Iniciamos el bot
     dp.run_polling()
