@@ -2,11 +2,13 @@ import telegram
 import os
 import subprocess
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
+from LectorMercado.lectorMercado import LeerPrecios
 
 TELEGRAM = './Configuracion/Bot_telegram.txt'
 HELP='./Configuracion/Help_config.txt'
 SUDO='./Configuracion/Sudo_config.txt'
 ACC='./Configuracion/Acciones_config.txt'
+SEND='./Configuracion/preciosFinales.txt'
 
 class Bot:
     """*+
@@ -125,3 +127,29 @@ async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYP
     f.close()
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
+
+def borrar_documento(ruta):
+        """*+
+        Borra el fichero una vez se ha mandado
+
+        Args:
+            ruta (STR): ruta donde se encuentra el fichero a borrar
+        """
+        if os.path.exists(ruta):
+            os.remove(ruta)
+            print("El documento ha sido borrado exitosamente.")
+        else:
+            print("El documento no existe.")    
+    
+async def SendAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+    
+    LeerPrecios.obtener_precios_acciones(LeerPrecios(leerLineas(ACC)))
+    
+    with open(SEND, 'rb') as file:
+        await context.bot.send_document(chat_id=update.effective_chat.id, document=file)
+    file.close()
+    
+    borrar_documento(SEND)
+       
+    await context.bot.send_message(chat_id=update.effective_chat.id, text='El archivo se encuentra en el mensaje anterior')
+    
