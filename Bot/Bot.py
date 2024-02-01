@@ -3,6 +3,9 @@ import os
 import subprocess
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
 from LectorMercado.lectorMercado import LeerPrecios
+from basicos.BorarFichero import borrar_documento
+from basicos.LeerDocumento import leerLineas, leerAcciones
+from basicos.LlamadasSistema import llamadasSistemaSudo
 
 TELEGRAM = './Configuracion/Bot_telegram.txt'
 HELP='./Configuracion/Help_config.txt'
@@ -54,43 +57,11 @@ async def help(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
        
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
 
-def llamadaSistema(entrada):
-    salida = "" # Creamos variable vacia
-    f = os.popen(entrada) # Llamada al sistema
-    for i in f.readlines(): # Leemos caracter a caracter sobre la linea devuelta por la llamada al sistema
-        salida += i  # Insertamos cada uno de los caracteres en nuestra variable
-    salida = salida[:-1] # Truncamos el caracter fin de linea '\n'
-
-    return salida # Devolvemos la respuesta al comando ejecutado
-
-def llamadasSistemaSudo(comando: str, contrasena):
-    Sudocomando='sudo '+ comando                
-    proc = subprocess.Popen(Sudocomando, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-    proc.stdin.write(contrasena.encode('utf-8'))
-    proc.stdin.close()
-
 async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
 	args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
 	a = llamadasSistemaSudo('reboot', args[0]) # Llamada al sistema con sudo
 	await context.bot.send_message(chat_id=update.effective_chat.id, text='Reboot, realizado con exito.\nPara confirmar que el bot vuelve a estar operativo use /start')
 
-def leerLineas(ruta):
-    linea=[]
-    with open(ruta, 'r') as f:
-            for line in f.readlines():
-                linea.append(line.strip('\n'))
-    f.close()
-    return linea
-
-
-def leerAcciones():
-    acciones=[]
-    texto=''
-    acciones=leerLineas(ACC)
-    
-    for x in acciones:
-        texto=texto+x+'\n'
-    return texto
 
 async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     texto = leerAcciones()        
@@ -128,19 +99,6 @@ async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYP
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
 
-def borrar_documento(ruta):
-        """*+
-        Borra el fichero una vez se ha mandado
-
-        Args:
-            ruta (STR): ruta donde se encuentra el fichero a borrar
-        """
-        if os.path.exists(ruta):
-            os.remove(ruta)
-            print("El documento ha sido borrado exitosamente.")
-        else:
-            print("El documento no existe.")    
-    
 async def SendAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     
     LeerPrecios.obtener_precios_acciones(LeerPrecios(leerLineas(ACC)))
