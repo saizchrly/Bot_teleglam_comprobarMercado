@@ -1,6 +1,7 @@
 # Importar librerias
 import Bot.Bot as BotC
 from Bot.Bot import Bot
+from basicos.Comprobarconfiguracion import comprobarConfig
 
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
@@ -27,5 +28,6 @@ def main(bot):
 if __name__ == '__main__':
     godofredo = Bot()
     godofredo.configuracionTelegram()
+    comprobarConfig()
     main(godofredo)
     

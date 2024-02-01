@@ -9,7 +9,6 @@ from basicos.LlamadasSistema import llamadasSistemaSudo
 
 TELEGRAM = './Configuracion/Bot_telegram.txt'
 HELP='./Configuracion/Help_config.txt'
-SUDO='./Configuracion/Sudo_config.txt'
 ACC='./Configuracion/Acciones_config.txt'
 SEND='./Configuracion/preciosFinales.txt'
 
