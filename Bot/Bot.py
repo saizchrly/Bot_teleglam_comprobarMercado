@@ -1,6 +1,4 @@
 import telegram
-import os
-import subprocess
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
 from LectorMercado.lectorMercado import LeerPrecios
 from basicos.BorarFichero import borrar_documento
