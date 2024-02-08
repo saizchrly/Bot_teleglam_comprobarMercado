@@ -1,6 +1,5 @@
 # Importar librerias
 import src.Bot.Bot as BotC
-from src.Bot.Bot import Bot
 from src.basicos.Comprobarconfiguracion import comprobarConfig
 
 import telegram
@@ -9,7 +8,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Application, C
 
 def main(bot):
     #obtenemos los datos del bot
-    dp  = Application.builder().token(bot.Token).build()
+    dp  = Application.builder().token(bot).build()
  
     # Asociamos manejadores para cada comando reconocible
     dp.add_handler(CommandHandler('help', BotC.help))
@@ -26,8 +25,7 @@ def main(bot):
     dp.idle() 
     
 if __name__ == '__main__':
-    godofredo = Bot()
-    godofredo.configuracionTelegram()
+    godofredo = BotC.configuracionTelegram()
     comprobarConfig()
     main(godofredo)
     

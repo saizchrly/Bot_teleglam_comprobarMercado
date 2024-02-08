@@ -8,28 +8,22 @@ Clase en la que leemos los valores de mercado de las acciones que hemos establec
 # imports
 import datetime
 import yfinance as yf
-from Acciones.ListasAcciones import ListasAcciones
+from src.Acciones.ListasAcciones import ListasAcciones
 
-
-class LeerPrecios:
-
+class lectorMercado:
     def __init__(self, acciones):
         """*+
         Construrtor
-
         Args:
             acciones (List): Lista de las accones que queremos consultar
         """
         self.listaAcciones = ListasAcciones(acciones)
-
     def obtener_precios_acciones(self):
         """*+
         Funcion utilizada para la lectura de los valores de mercado de las acciones.
-
         Args:
             condicion (INT): Esta condcion indica si los valores a leer son de por la mañana o de por la tarde
         """
-
         for x in self.listaAcciones.acciones:
             nombre= x.__getitem__('nombre')
             datosAciones = yf.download(nombre, period='1d')

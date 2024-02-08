@@ -10,7 +10,7 @@ A su vez encontramos las funciones correspondientes a los getter y setter corres
 @date: 24/06/2023
 """
 # imports
-from Acciones.Acciones import Acciones
+from src.Acciones.Acciones import Acciones
 
 
 class ListasAcciones:

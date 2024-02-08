@@ -1,37 +1,26 @@
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
-from LectorMercado.lectorMercado import LeerPrecios
-from basicos.BorarFichero import borrar_documento
-from basicos.LeerDocumento import leerLineas, leerAcciones
-from basicos.LlamadasSistema import llamadasSistemaSudo
+from src.LectorMercado.lectorMercado import lectorMercado
+from src.basicos.BorarFichero import borrar_documento
+from src.basicos.LeerDocumento import leerLineas, leerAcciones
+from src.basicos.LlamadasSistema import llamadasSistemaSudo
 
-TELEGRAM = './Configuracion/Bot_telegram.txt'
-HELP='./Configuracion/Help_config.txt'
-ACC='./Configuracion/Acciones_config.txt'
-SEND='./Configuracion/preciosFinales.txt'
+TELEGRAM = './src/Configuracion/Bot_telegram.txt'
+HELP='./src/Configuracion/Help_config.txt'
+ACC='./src/Configuracion/Acciones_config.txt'
+SEND='./src/Configuracion/preciosFinales.txt'
 
-class Bot:
-    """*+
-    Creacion del objeto Bot
-    """
-    def __init__(self):
-        """Constructor del objeto.
-        """
-        self.Token = ""
-        self.id = ""
-    def __str__(self):
-        print('El token es: ' + str(self.Token) + '\n' + 'El id es: '+str(self.Id))
         
-    def configuracionTelegram(self):
-        """*+
-        Configuracion del emisor
-        """
-        lineas = []
-        with open(TELEGRAM, 'r') as f:
-            for line in f.readlines():
-                lineas.append(line.strip('\n'))
-        self.Token = lineas[0]
-        self.id = lineas[1]
+def configuracionTelegram():
+    """*+
+    Configuracion del emisor
+    """
+    linea=''
+    with open(TELEGRAM, 'r') as f:
+        for line in f.readlines():
+            linea=str(line.strip('\n'))
+    return linea
+    
 
 
 
@@ -61,7 +50,7 @@ async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    texto = leerAcciones()        
+    texto = leerAcciones(ACC)        
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     
 async def addAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
@@ -98,7 +87,7 @@ async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYP
 
 async def SendAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     
-    LeerPrecios.obtener_precios_acciones(LeerPrecios(leerLineas(ACC)))
+    lectorMercado.obtener_precios_acciones(lectorMercado(leerLineas(ACC)))
     
     with open(SEND, 'rb') as file:
         await context.bot.send_document(chat_id=update.effective_chat.id, document=file)
