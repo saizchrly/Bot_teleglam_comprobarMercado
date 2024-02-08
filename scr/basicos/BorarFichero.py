@@ -1,3 +1,6 @@
+import os
+
+
 def borrar_documento(ruta):
         """*+
         Borra el fichero una vez se ha mandado
