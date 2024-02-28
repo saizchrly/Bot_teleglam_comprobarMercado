@@ -1,4 +1,2 @@
-python-telegram-bot
-os
-subprocess
+python-telegram-bot==20.7
 yfinance
