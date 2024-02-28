@@ -33,7 +33,7 @@ class lectorMercado:
                 precioFinal=round(datosAciones['Close'].values[0], 2)
                 self.listaAcciones.set_valorInicial_accion(nombre,precioInicial)
                 self.listaAcciones.set_valorFinal_accion(nombre,precioFinal)
-                with open('./Configuracion/preciosFinales.txt', 'a') as f:
+                with open('./src/Configuracion/preciosFinales.txt', 'a') as f:
                     f.write(str(datetime.date.today()))
                     f.write(f"\n---- {x.__getitem__('nombre')} ----\n")
                     f.write('- INICIO -\n')
