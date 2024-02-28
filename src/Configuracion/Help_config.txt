@@ -4,4 +4,4 @@
 /acciones -> Este comando mostrara las acciones que vamos a comprobar.
 /accionesAdd Acion1 Acion2 -> Este comando añadirá acciones a la lista.
 /accionesDel Acion1 Acion2 -> Este comando borrará acciones de la lista.
-/sendAciones -> Este comandopermite mandar un documento .txt con los precios de las acciones.
+/sendAcciones -> Este comandopermite mandar un documento .txt con los precios de las acciones.
