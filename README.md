@@ -4,39 +4,9 @@ Está desarrollado principalmente con la librería *python-telegram-bot*, aunque
 
 ## Método de ejecución
 1. Primero de todo debes tener en el equipo docker, Siya posees docker en tu equipo puedes saltar el paso 2
-Si no lo tienes puedes descargarlo de dos formas, la version grafica, [link](https://www.docker.com/products/docker-desktop/), o si deseas descargarlo por linea de comandos en linux.
+Si no lo tienes puedes descargarlo de dos formas, la version grafica, [link](https://www.docker.com/products/docker-desktop/), o si deseas descargarlo por linea de comandos en linux, [link](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es)
 
-- Seguir los comandos en orden
-```
-sudo apt update
-```
-```
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
-```
-```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-```
-```
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-```
-```
-sudo apt update
-```
-```
-sudo apt install docker-ce
-```
-- Si no deseas escribir sudo cadáver que necesites ejecutar un comando de Docker escribe lo siguiente, este paso es opcional.
-Cambie 'USER' por su usuario
-```
-sudo usermod -aG docker ${USER}
-```
-```
-su - ${USER}
-```
-- Compruebe que su usuario se encuentra en la lista con el siguiente comando
-```
-id -nG
-```
+2. 
 
 
 ## Ayuda 
