@@ -11,11 +11,14 @@ git clone URL nombre_directorio_destino
 Primero de todo debes tener en el equipo docker, si ya posees docker en tu equipo puedes saltar el paso 3.
 Si no lo tienes puedes descargarlo de dos formas, la version gráfica, [link](https://www.docker.com/products/docker-desktop/), o si deseas descargarlo por línea de comandos en linux, [link](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es)
 
-3. CREAR LA IMAGEN
+3. CONFIGURAR BOT
+No debemos olvidar que antes de realizar la imagen debemos al menos crear actualizar el archivo **Bot_telegram.txt** con la dirección de nuestro bot
+
+4. CREAR LA IMAGEN
 ```
 docker build -t nombre:1 .
 ```
-4. RUN DE LA IMAGEN
+5. RUN DE LA IMAGEN
 ```
 docker run nombre:1
 ```
