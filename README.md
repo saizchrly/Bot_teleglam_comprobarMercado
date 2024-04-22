@@ -7,11 +7,11 @@ Está desarrollado principalmente con la librería *python-telegram-bot*, aunque
 ```
 git clone URL nombre_directorio_destino
 ```
-2. INSTALACIÓN DOCKER
+2. INSTALACIÓN DOCKER<br>
 Primero de todo debes tener en el equipo docker, si ya posees docker en tu equipo puedes saltar el paso 3.
 Si no lo tienes puedes descargarlo de dos formas, la version gráfica, [link](https://www.docker.com/products/docker-desktop/), o si deseas descargarlo por línea de comandos en linux, [link](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es)
 
-3. CONFIGURAR BOT
+3. CONFIGURAR BOT<br>
 No debemos olvidar que antes de realizar la imagen debemos al menos actualizar el archivo **Bot_telegram.txt** con la dirección de nuestro bot
 
 4. CREAR LA IMAGEN
