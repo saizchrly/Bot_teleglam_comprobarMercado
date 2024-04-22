@@ -12,7 +12,7 @@ Primero de todo debes tener en el equipo docker, si ya posees docker en tu equip
 Si no lo tienes puedes descargarlo de dos formas, la version gráfica, [link](https://www.docker.com/products/docker-desktop/), o si deseas descargarlo por línea de comandos en linux, [link](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es)
 
 3. CONFIGURAR BOT
-No debemos olvidar que antes de realizar la imagen debemos al menos crear actualizar el archivo **Bot_telegram.txt** con la dirección de nuestro bot
+No debemos olvidar que antes de realizar la imagen debemos al menos actualizar el archivo **Bot_telegram.txt** con la dirección de nuestro bot
 
 4. CREAR LA IMAGEN
 ```
