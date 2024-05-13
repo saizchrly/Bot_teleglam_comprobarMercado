@@ -26,7 +26,7 @@ def main(bot):
     dp.idle() 
     
 if __name__ == '__main__':
-    godofredo = BotC.configuracionTelegram()
     comprobarConfig()
+    godofredo = BotC.configuracionTelegram()
     main(godofredo)
     

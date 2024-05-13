@@ -1,3 +1,5 @@
 *.txt
 !bibliotecas.txt
 !Help_config.txt
+src/Configuracion/Acciones_config.txt
+src/Configuracion/Bot_telegram.txt
