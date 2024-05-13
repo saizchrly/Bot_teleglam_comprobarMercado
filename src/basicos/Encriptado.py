@@ -69,3 +69,27 @@ def descifrarArchivo(archivo:str):
     except Exception as e: 
         print(f'DescifrarArchivo-->\tError: {e}')
 
+
+def obtenerDatosArchivos (path):
+    """*+
+    Obtiene los datos de un archivo
+
+    Args:
+        path (str): path del archivo
+
+    Returns:
+        str: datos del archivo
+    """
+    try:
+        descifrarArchivo(path)
+        
+        with open(texto, 'r') as f:
+            datos = f.read()
+        f.close()
+        
+        cifrarArchivo(path)
+        
+        return datos
+    except Exception as e:
+        print(f'obtenerDatosArchivos-->\tError: {e}')
+        return None

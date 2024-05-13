@@ -1,4 +1,5 @@
 import os
+from .src.basicos.Encriptado import cifrarArchivo
 
 TELEGRAM = './src/Configuracion/Bot_telegram.txt'
 HELP='./src/Configuracion/Help_config.txt'
@@ -13,3 +14,7 @@ def comprobarConfig():
         file.close()
     if not os.path.exists(ACC):
         open(ACC, 'w').close()
+    
+    cifrarArchivo(TELEGRAM)
+    cifrarArchivo(HELP)
+    cifrarArchivo(ACC)

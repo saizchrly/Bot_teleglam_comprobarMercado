@@ -26,7 +26,6 @@ def main(bot):
     dp.idle() 
     
 if __name__ == '__main__':
-    Encriptado.obtenerFechaCreacion('src/basicos/Encriptado.py')
     godofredo = BotC.configuracionTelegram()
     comprobarConfig()
     main(godofredo)
