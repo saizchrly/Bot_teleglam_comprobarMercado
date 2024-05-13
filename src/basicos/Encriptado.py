@@ -93,3 +93,10 @@ def obtenerDatosArchivos (path):
     except Exception as e:
         print(f'obtenerDatosArchivos-->\tError: {e}')
         return None
+    
+def encriptadoGeneral (diccionaro):
+    for key, val in diccionaro.items():
+        if val[0] == 1:
+            diccionaro[key][0] = 2
+            cifrarArchivo(diccionaro[key][1])
+    return diccionaro
