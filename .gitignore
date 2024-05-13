@@ -5,3 +5,9 @@ src/Configuracion/Acciones_config.txt
 src/Configuracion/Bot_telegram.txt
 __pycache__
 .gitattributes
+src/basicos/__pycache__/Comprobarconfiguracion.cpython-38.pyc
+src/basicos/__pycache__/Encriptado.cpython-38.pyc
+src/basicos/__pycache__/LeerDocumento.cpython-38.pyc
+src/Configuracion/Acciones_config.txt
+src/Configuracion/Bot_telegram.txt
+src/Configuracion/Help_config.txt
