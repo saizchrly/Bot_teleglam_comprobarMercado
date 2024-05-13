@@ -25,11 +25,8 @@ def main(bot):
     dp.idle() 
     
 if __name__ == '__main__':
-    diccionario={}
     comprobarConfig()
     godofredo = BotC.configuracionTelegram()
-    diccionario=leerDiccionarioConfiguracion()
-    print(diccionario)
-    print(type(diccionario))
+    encriptadoGeneral()
     main(godofredo)
     

@@ -1,5 +1,6 @@
 import os
-from src.basicos.Encriptado import cifrarArchivo, descifrarArchivo
+
+from src.basicos import Encriptado
 
 TELEGRAM = './src/Configuracion/Bot_telegram.txt'
 HELP='./src/Configuracion/Help_config.txt'
@@ -8,6 +9,7 @@ ENCIPTADO = './src/Configuracion/Encriptado_config.txt'
 
 
 def comprobarConfig():
+    Encriptado.desencriptadoGeneral()
     if not os.path.exists(TELEGRAM):
         open(TELEGRAM, 'w').close()
     if not os.path.exists(HELP):
@@ -32,3 +34,8 @@ def leerDiccionarioConfiguracion():
         diccionario = eval(file.read())
     file.close()
     return diccionario
+
+def escribirDiccionarioConfiguracion(diccionario):
+    with open(ENCIPTADO, 'w') as file:
+        file.write(str(diccionario))
+    file.close()
