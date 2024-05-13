@@ -1,3 +1,4 @@
+from src.basicos.Encriptado import descifrarArchivo, cifrarArchivo
 
 def leerLineas(ruta):
     """*+
@@ -9,11 +10,13 @@ def leerLineas(ruta):
     Returns:
         LIST: lista de las lineas del documento
     """
+    descifrarArchivo(ruta)
     linea=[]
     with open(ruta, 'r') as f:
             for line in f.readlines():
                 linea.append(line.strip('\n'))
     f.close()
+    cifrarArchivo(ruta)
     return linea
 
 
@@ -27,10 +30,11 @@ def leerAcciones(ruta: str):
     Returns:
         srt: String de las lineas del documento
     """
+    descifrarArchivo(ruta)
     acciones=[]
     texto=''
     acciones=leerLineas(ruta)
-    
+    cifrarArchivo(ruta)
     for x in acciones:
         texto=texto+x+'\n'
     return texto
