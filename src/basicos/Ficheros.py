@@ -238,6 +238,9 @@ class Ficheros:
 
     @staticmethod
     def encriptadoGeneral ():
+        """*+
+        Encripta todos los archivos necesarios para el bot
+        """
         diccionario = Ficheros.leerDiccionarioConfiguracion()
         for key, val in diccionario.items():
             if val[0] == 1:
@@ -248,6 +251,9 @@ class Ficheros:
 
     @staticmethod
     def desencriptadoGeneral ():
+        """*+
+        Desencripta todos los archivos necesarios para el bot
+        """
         diccionario = Ficheros.leerDiccionarioConfiguracion()
         for key, val in diccionario.items():
             if val[0] == 2:
