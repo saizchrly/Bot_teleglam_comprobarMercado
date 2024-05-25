@@ -42,7 +42,14 @@ class lectorMercado:
                 Ficheros.escribirFichero(f"La accion {nombre} no existe\n", SEND, 'a')
     
     @staticmethod
-    def obtenerValores(datosAciones, nombre):
+    def obtenerValores(datosAciones, nombre:str):
+        """*+
+        Funcion utilizada para la obtencion de los valores de las acciones
+
+        Args:
+            datosAciones (yf.download): Datos de las acciones
+            nombre (str): Nombre de la accion
+        """
         precioInicial = round(datosAciones['Open'].values[0], 2)
         precioFinal=round(datosAciones['Close'].values[0], 2)
         self.listaAcciones.set_valorInicial_accion(nombre,precioInicial)
