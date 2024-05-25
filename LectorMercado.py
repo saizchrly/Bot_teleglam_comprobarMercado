@@ -1,7 +1,6 @@
 # Importar librerias
 import src.Bot.Bot as BotC
-from src.basicos.Comprobarconfiguracion import comprobarConfig, leerDiccionarioConfiguracion
-from src.basicos.Encriptado import encriptadoGeneral
+from src.basicos.Ficheros import Ficheros
 
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
@@ -25,8 +24,7 @@ def main(bot):
     dp.idle() 
     
 if __name__ == '__main__':
-    comprobarConfig()
+    Ficheros.comprobarConfig()
     godofredo = BotC.configuracionTelegram()
-    encriptadoGeneral()
+    Ficheros.encriptadoGeneral()
     main(godofredo)
-    

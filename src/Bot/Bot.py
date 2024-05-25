@@ -1,9 +1,8 @@
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
 from src.LectorMercado.lectorMercado import lectorMercado
-from src.basicos.BorarFichero import borrar_documento
-from src.basicos.LeerDocumento import leerLineas, leerAcciones
-from src.basicos.LlamadasSistema import llamadasSistemaSudo
+from src.basicos.LlamadasSistema import LlamadasSistema
+from src.basicos.Ficheros import Ficheros
 
 TELEGRAM = './src/Configuracion/Bot_telegram.txt'
 HELP='./src/Configuracion/Help_config.txt'
@@ -37,7 +36,7 @@ async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     texto=''
-    Lineas=leerLineas(HELP)
+    Lineas=Ficheros.leerLineas(HELP)
     for line in Lineas:
         texto=texto+line+'\n'
        
@@ -45,30 +44,30 @@ async def help(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
 	args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
-	a = llamadasSistemaSudo('reboot', args[0]) # Llamada al sistema con sudo
+	a = LlamadasSistema.llamadaSistemaSudo('reboot', args[0]) # Llamada al sistema con sudo
 	await context.bot.send_message(chat_id=update.effective_chat.id, text='Reboot, realizado con exito.\nPara confirmar que el bot vuelve a estar operativo use /start')
 
 
 async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    texto = leerAcciones(ACC)        
+    texto = Ficheros.leerAcciones(ACC)        
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     
 async def addAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
-    acciones=leerLineas(ACC)
+    acciones=Ficheros.leerLineas(ACC)
     with open(ACC, 'a') as f:
         for x in args:
             accion=x.upper()
             if accion not in acciones:
                 f.write(accion+'\n')
     f.close()
-    texto = leerAcciones()
+    texto = Ficheros.leerAcciones()
     await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
     await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
     
 async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
-    acciones = leerLineas(ACC)
+    acciones = Ficheros.leerLineas(ACC)
     
     for x in range(len(args)):
         args[x]=args[x].upper()
@@ -87,13 +86,13 @@ async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYP
 
 async def SendAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
     
-    lectorMercado.obtener_precios_acciones(lectorMercado(leerLineas(ACC)))
+    lectorMercado.obtener_precios_acciones(lectorMercado(Ficheros.leerLineas(ACC)))
     
     with open(SEND, 'rb') as file:
         await context.bot.send_document(chat_id=update.effective_chat.id, document=file)
     file.close()
     
-    borrar_documento(SEND)
+    Ficheros.borrar_documento(SEND)
        
     await context.bot.send_message(chat_id=update.effective_chat.id, text='El archivo se encuentra en el mensaje anterior')
     

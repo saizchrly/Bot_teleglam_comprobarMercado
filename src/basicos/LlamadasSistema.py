@@ -23,7 +23,7 @@ class LlamadasSistema:
         return salida # Devolvemos la respuesta al comando ejecutado
 
     @staticmethod
-    def llamadasSistemaSudo(comando: str, contrasena):
+    def llamadaSistemaSudo(comando: str, contrasena):
         """*+
         Hace una llamada al sistema
 
