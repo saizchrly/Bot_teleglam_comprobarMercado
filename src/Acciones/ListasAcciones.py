@@ -80,10 +80,10 @@ class ListasAcciones:
         Returns:
             INT: retorna el valor final, en caso de que no exista la acción no retorna nada
         """
-        if accion in self.nombresAcciones:
-            for x in self.acciones:
-                if accion == x.nombre:
-                    return x.valorFinal
+        for x in self.acciones:
+            if accion == x.nombre:
+                return x.valorFinal
+        return None
 
     def set_valorFinal_accion(self, accion, valor):
         """
