@@ -1,5 +1,5 @@
 # Importar librerias
-import src.Bot.Bot as BotC
+from src.Bot.Bot import Bot
 from src.basicos.Ficheros import Ficheros
 
 import telegram
@@ -7,16 +7,16 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Application, C
 
 def main(bot):
     #obtenemos los datos del bot
-    dp  = Application.builder().token(bot).build()
+    dp  = Application.builder().token(bot.get_bot()).build()
  
     # Asociamos manejadores para cada comando reconocible
-    dp.add_handler(CommandHandler('help', BotC.help))
-    dp.add_handler(CommandHandler('start', BotC.start))
-    dp.add_handler(CommandHandler('reboot', BotC.reboot, has_args=True))
-    dp.add_handler(CommandHandler('acciones', BotC.acciones))
-    dp.add_handler(CommandHandler('accionesAdd', BotC.addAcciones, has_args=True))
-    dp.add_handler(CommandHandler('accionesDel', BotC.delAcciones, has_args=True))
-    dp.add_handler(CommandHandler('sendAcciones', BotC.SendAcciones))
+    dp.add_handler(CommandHandler('help', Bot.help))
+    dp.add_handler(CommandHandler('start', Bot.start))
+    dp.add_handler(CommandHandler('reboot', Bot.reboot, has_args=True))
+    dp.add_handler(CommandHandler('acciones', Bot.acciones))
+    dp.add_handler(CommandHandler('accionesAdd', Bot.addAcciones, has_args=True))
+    dp.add_handler(CommandHandler('accionesDel', Bot.delAcciones, has_args=True))
+    dp.add_handler(CommandHandler('sendAcciones', Bot.SendAcciones))
 
     # Iniciamos el bot
     dp.run_polling()
@@ -25,6 +25,6 @@ def main(bot):
     
 if __name__ == '__main__':
     Ficheros.comprobarConfig()
-    godofredo = BotC.configuracionTelegram()
+    godofredo = Bot()
     Ficheros.encriptadoGeneral()
     main(godofredo)

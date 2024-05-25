@@ -7,9 +7,9 @@ A su vez encontramos las funciones correspondientes a los getter y setter corres
 
 @author: CSH
 @version: 1.3
-@date: 24/06/2023
+@date: 25/05/2024
 """
-from src.Acciones import Acciones
+from src.Acciones.Acciones import Acciones
 
 
 class ListasAcciones:

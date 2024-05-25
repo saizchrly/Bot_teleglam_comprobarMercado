@@ -103,17 +103,19 @@ class Ficheros:
         return texto
 
     @staticmethod
-    def escribirFichero(texto:str, fichero:str):
+    def escribirFichero(texto:str, fichero:str, condicion:str='w'):
         """*+
         Escribe un texto en un fichero
         
         Args:
             texto (str): texto que queremos escribir
             fichero (str): fichero donde queremos escribir el texto
+            condicion (str, optional): condicion para escribir el texto. Defecto a 'w'.
         """
-        with open(fichero, 'w') as f:
+        with open(fichero, condicion) as f:
             f.write(texto)
-    
+        f.close()
+        
     @staticmethod
     def borrar_documento(ruta):
         """*+
