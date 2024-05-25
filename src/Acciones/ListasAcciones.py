@@ -1,5 +1,3 @@
-from Acciones import Acciones
-
 """
 Clase creada para el control de las acciones, mediante la creación de una lista
 en esta clase nos encontramos con una lista de objetos acciones, y una lista con
@@ -8,9 +6,10 @@ los nombres de dichas acciones.
 A su vez encontramos las funciones correspondientes a los getter y setter correspondientes.
 
 @author: CSH
-@version: 1.2
+@version: 1.3
 @date: 24/06/2023
 """
+from src.Acciones import Acciones
 
 
 class ListasAcciones:
