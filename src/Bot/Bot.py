@@ -34,7 +34,34 @@ class Bot:
             str : token del bot
         """
         return self.bot
+    
+    def start_bot(self):
+        """*+
+        Funcion start_bot, en la que se inicia el bot de telegram
+        """
+        dp  = Application.builder().token(self.get_bot()).build()
         
+        self.manejadores(dp)
+        
+        # Inicializamos y actualizamos el bot
+        dp.run_polling()
+        dp.idle()
+    
+    def manejadores(self, dp: Application):
+        """*+
+        Funcion manejadores, en la que se añaden los manejadores de los comandos del bot
+
+        Args:
+            dp (Application): bot de telegram
+        """
+        dp.add_handler(CommandHandler('help', self.help))
+        dp.add_handler(CommandHandler('start', self.start))
+        dp.add_handler(CommandHandler('reboot', self.reboot, has_args=True))
+        dp.add_handler(CommandHandler('acciones', self.acciones))
+        dp.add_handler(CommandHandler('accionesAdd', self.addAcciones, has_args=True))
+        dp.add_handler(CommandHandler('accionesDel', self.delAcciones, has_args=True))
+        dp.add_handler(CommandHandler('sendAcciones', self.SendAcciones)) 
+          
     @staticmethod
     async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
         """*+
