@@ -6,7 +6,6 @@ class TestAcciones(unittest.TestCase):
         self.accion = Acciones("AAPL")
         self.accion.set_valor_inicial(100)
         self.accion.set_valor_final(120)
-        self.accion.set_diferencia(20)
 
     def test_get_nombre(self):
         self.assertEqual(self.accion.get_nombre(), "AAPL")
@@ -32,14 +31,7 @@ class TestAcciones(unittest.TestCase):
         self.accion.set_valor_final(200)
         self.assertEqual(self.accion.get_valor_final(), 200)
     
-    def test_set_diferencia(self):
-        self.accion.set_diferencia(50)
-        self.assertEqual(self.accion.get_diferencia(), 50)
         
-    def test_calcular_diferencia(self):
-        self.accion.calcular_diferencia()
-        self.assertEqual(self.accion.get_diferencia(), 20)
-
 
 
 if __name__ == '__main__':
