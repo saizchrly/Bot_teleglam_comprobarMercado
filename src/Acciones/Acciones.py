@@ -30,7 +30,7 @@ class Acciones:
         self.valorFinal = 0
         
         # diferencia entre el valor final y el valor inicial
-        self.diferencia = self.calcular_diferencia()
+        self.diferencia = 0
     
     def __str__(self):
         """*+
@@ -73,6 +73,7 @@ class Acciones:
         Returns:
             INT: Diferencia entre el valor final y el valor inicial
         """
+        self.diferencia = self.calcular_diferencia()
         return self.diferencia
 
     def set_nombre(self, nombre):

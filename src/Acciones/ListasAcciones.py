@@ -53,7 +53,7 @@ class ListasAcciones:
             int: El valor inicial de la acción. Si la acción no existe, devuelve None.
         """
         for x in self.acciones:
-            if accion == x.nombre:
+            if accion == x.nombreAccion:
                 return x.valorInicial
         return None
 
@@ -66,7 +66,7 @@ class ListasAcciones:
             valor (INT): Valor de la acción
         """
         for x in range(len(self.acciones)):
-            if accion == self.acciones[x].nombre:
+            if accion == self.acciones[x].nombreAccion:
                 self.acciones[x].valorInicial = valor
 
     def get_valorFinal_accion(self, accion):
@@ -80,7 +80,7 @@ class ListasAcciones:
             INT: retorna el valor final, en caso de que no exista la acción no retorna nada
         """
         for x in self.acciones:
-            if accion == x.nombre:
+            if accion == x.nombreAccion:
                 return x.valorFinal
         return None
 
@@ -93,7 +93,7 @@ class ListasAcciones:
             valor (INT): Valor de la acción.
         """
         for x in range(len(self.nombresAcciones)):
-            if accion == self.acciones[x].nombre:
+            if accion == self.acciones[x].nombreAccion:
                 self.acciones[x].valorFinal = valor
 
     def get_diferencia_accion(self, accion):
@@ -107,5 +107,6 @@ class ListasAcciones:
             INT: Diferencia entre los valores iniciales y finales de la acción.
         """
         for x in self.acciones:
-            if accion == x.nombre:
-                return x.diferencia
+            if accion == x.nombreAccion:
+                return x.get_diferencia()
+        return None
