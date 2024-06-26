@@ -1,99 +1,179 @@
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Application, ContextTypes
 from src.LectorMercado.lectorMercado import lectorMercado
-from src.basicos.BorarFichero import borrar_documento
-from src.basicos.LeerDocumento import leerLineas, leerAcciones
-from src.basicos.LlamadasSistema import llamadasSistemaSudo
+from src.basicos.Ficheros import Ficheros
+from src.basicos.LlamadasSistema import LlamadasSistema
 
 TELEGRAM = './src/Configuracion/Bot_telegram.txt'
 HELP='./src/Configuracion/Help_config.txt'
 ACC='./src/Configuracion/Acciones_config.txt'
 SEND='./src/Configuracion/preciosFinales.txt'
 
+class Bot:
+    
+    def __init__(self):
+        """*+
+        Constructor de la clase Bot, en el que se inicializa el bot de telegram
+        """
+        self.set_bot(TELEGRAM)
+
+    def set_bot(self, path: str):
+        """*+
+        Funcion set_bot, en la que se inicializa el bot de telegram
+
+        Args:
+            path (str): ruta del fichero donde se encuentra el token del bot
+        """
+        self.bot =Ficheros.leerLineas(path)[0]
+                
+    def get_bot(self) -> str:
+        """*+
+        Funcion get_bot, en la que se devuelve el bot de telegram
+
+        Returns:
+            str : token del bot
+        """
+        return self.bot
+    
+    def start_bot(self):
+        """*+
+        Funcion start_bot, en la que se inicia el bot de telegram
+        """
+        dp  = Application.builder().token(self.get_bot()).build()
         
-def configuracionTelegram():
-    """*+
-    Configuracion del emisor
-    """
-    linea=''
-    with open(TELEGRAM, 'r') as f:
-        for line in f.readlines():
-            linea=str(line.strip('\n'))
-    return linea
+        self.manejadores(dp)
+        
+        # Inicializamos y actualizamos el bot
+        dp.run_polling()
+        dp.idle()
     
+    def manejadores(self, dp: Application):
+        """*+
+        Funcion manejadores, en la que se añaden los manejadores de los comandos del bot
 
+        Args:
+            dp (Application): bot de telegram
+        """
+        dp.add_handler(CommandHandler('help', self.help))
+        dp.add_handler(CommandHandler('start', self.start))
+        dp.add_handler(CommandHandler('reboot', self.reboot, has_args=True))
+        dp.add_handler(CommandHandler('acciones', self.acciones))
+        dp.add_handler(CommandHandler('accionesAdd', self.addAcciones, has_args=True))
+        dp.add_handler(CommandHandler('accionesDel', self.delAcciones, has_args=True))
+        dp.add_handler(CommandHandler('sendAcciones', self.SendAcciones)) 
+          
+    @staticmethod
+    async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+        """*+
+        Funcion start, con la que comprobaremos que el bot se encuentra operativo
 
+        Args:
+            update (telegram.Update): constructor del bot
+            context (ContextTypes.DEFAULT_TYPE): tipo de contexto
+        """
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Soy un bot, y estoy operativo.\nSi necesita ayuda escriba /help.")
 
-async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    """*+
-    Funcion start, con la que comprobaremos que el bot se encuentra operativo
+    @staticmethod
+    async def help(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+        """*+
+        Funcion help, con la que se muestra la ayuda del bot
 
-    Args:
-        update (telegram.Update): constructor del bot
-        context (ContextTypes.DEFAULT_TYPE): tipo de contexto
-    """
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Soy un bot, y estoy operativo.\nSi necesita ayuda escriba /help.")
+        Args:
+            update (telegram.Update): update del bot
+            context (ContextTypes.DEFAULT_TYPE): contexto del bot
+        """
+        texto = ''
+        Lineas = Ficheros.leerLineas(HELP)
+        for line in Lineas:
+            texto = texto + line + '\n'
 
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
 
-async def help(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    texto=''
-    Lineas=leerLineas(HELP)
-    for line in Lineas:
-        texto=texto+line+'\n'
-       
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
+    @staticmethod
+    async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+        """*+
+        Funcion reboot, con la que se reinicia el bot
 
-async def reboot(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-	args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
-	a = llamadasSistemaSudo('reboot', args[0]) # Llamada al sistema con sudo
-	await context.bot.send_message(chat_id=update.effective_chat.id, text='Reboot, realizado con exito.\nPara confirmar que el bot vuelve a estar operativo use /start')
+        Args:
+            update (telegram.Update): update del bot
+            context (ContextTypes.DEFAULT_TYPE): contexto del bot
+        """
+        args = context.args  # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
+        a = LlamadasSistema.llamadaSistemaSudo('reboot', args[0])  # Llamada al sistema con sudo
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='Reboot, realizado con exito.\nPara confirmar que el bot vuelve a estar operativo use /start')
 
+    @staticmethod
+    async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+        """*+
+        Funcion acciones, con la que se muestran las acciones que se van a comprobar
 
-async def acciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    texto = leerAcciones(ACC)        
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
-    
-async def addAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    args = context.args # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
-    acciones=leerLineas(ACC)
-    with open(ACC, 'a') as f:
+        Args:
+            update (telegram.Update): update del bot
+            context (ContextTypes.DEFAULT_TYPE): contexto del bot
+        """
+        texto = Ficheros.leerAcciones(ACC)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
+
+    @staticmethod
+    async def addAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+        """*+
+        Funcion addAcciones, con la que se añaden acciones a la lista de acciones a comprobar
+
+        Args:
+            update (telegram.Update): update del bot
+            context (ContextTypes.DEFAULT_TYPE): contexto del bot
+        """
+        args = context.args  # ACEDEMOS A LOS ARGUMENTOS IMPORTANTE
+        acciones = Ficheros.leerLineas(ACC)
+        
         for x in args:
-            accion=x.upper()
+            accion = x.upper()
             if accion not in acciones:
-                f.write(accion+'\n')
-    f.close()
-    texto = leerAcciones()
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
-    await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
-    
-async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
-    args = context.args
-    acciones = leerLineas(ACC)
-    
-    for x in range(len(args)):
-        args[x]=args[x].upper()
-        if args[x] in acciones:
-            acciones.remove(args[x])
-    
-    texto=''
-    with open(ACC, 'w') as f:
-        for x in acciones:
-            accion=x.upper()
-            f.write(accion+'\n')
-            texto=texto+x+'\n'
-    f.close()
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
-    await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
+                acciones.append(accion)
+        
+        Ficheros.escribirFichero(acciones, ACC)
+        texto = Ficheros.leerAcciones()
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
 
-async def SendAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+    @staticmethod
+    async def delAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+        """*+
+        Funcion delAcciones, con la que se eliminan acciones de la lista de acciones a comprobar
+
+        Args:
+            update (telegram.Update): update del bot
+            context (ContextTypes.DEFAULT_TYPE): contexto del bot
+        """
+        args = context.args
+        acciones = Ficheros.leerLineas(ACC)
+
+        for x in args:
+            accion = x.upper()
+            if accion in acciones:
+                acciones.remove(accion)
+
+        Ficheros.escribirFichero(acciones, ACC)
+        texto = Ficheros.leerAcciones(ACC)
     
-    lectorMercado.obtener_precios_acciones(lectorMercado(leerLineas(ACC)))
-    
-    with open(SEND, 'rb') as file:
-        await context.bot.send_document(chat_id=update.effective_chat.id, document=file)
-    file.close()
-    
-    borrar_documento(SEND)
-       
-    await context.bot.send_message(chat_id=update.effective_chat.id, text='El archivo se encuentra en el mensaje anterior')
-    
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=texto)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='La lista de las acciones ha sido actualizada')
+
+    @staticmethod
+    async def SendAcciones(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
+        """*+
+        Funcion SendAcciones, con la que se envian las acciones a comprobar
+
+        Args:
+            update (telegram.Update): update del bot
+            context (ContextTypes.DEFAULT_TYPE): contexto del bot
+        """
+        lectorMercado.obtener_precios_acciones(lectorMercado(Ficheros.leerLineas(ACC)))
+
+        with open(SEND, 'rb') as file:
+            await context.bot.send_document(chat_id=update.effective_chat.id, document=file)
+        file.close()
+
+        Ficheros.borrar_documento(SEND)
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='El archivo se encuentra en el mensaje anterior')

@@ -1,3 +1,6 @@
+[![codebeat badge](https://codebeat.co/badges/671e4983-43e3-42a2-814f-1add9beab322)](https://codebeat.co/projects/github-com-saizchrly-bot_teleglam_comprobarmercado-main)
+
+
 # Bot Lector de Mercado
 Este es un bot de Telegram, desarrollado por el momento para ejecutarse en máquinas Linux, enfocado en la lectura de los datos de las acciones que el usuario ha introducido con anterioridad.
 Está desarrollado principalmente con la librería *python-telegram-bot*, aunque se apoya en otras librerías para la ejecución de los comandos, como la librería *yfinance*, para la obtención de los datos de las acciones en el mercado

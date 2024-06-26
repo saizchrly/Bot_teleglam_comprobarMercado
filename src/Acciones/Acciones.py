@@ -31,22 +31,32 @@ class Acciones:
         
         self.diferencia = self.valorFinal-self.valorInicial
 
-    def __getitem__(self, indice):
-        """*+
-        Geters del objeto
-
-        Args:
-            indice (STR): Indice para la devolución de los datos del objeto
+    def get_nombre(self):
+        """
+        Getter del nombre de la acción
 
         Returns:
-            Depende el indice devuelve lo que corresponde
+            STR: Nombre de la acción
         """
-        if indice == 'nombre':
-            return self.nombreAccion
-        elif indice == 'valorInicial':
-            return self.valorInicial
-        elif indice == 'valorFinal':
-            return self.valorFinal
+        return self.nombreAccion
+
+    def get_valor_inicial(self):
+        """
+        Getter del valor inicial
+
+        Returns:
+            INT: Valor inicial
+        """
+        return self.valorInicial
+
+    def get_valor_final(self):
+        """
+        Getter del valor final
+
+        Returns:
+            INT: Valor final
+        """
+        return self.valorFinal
 
     def __str__(self):
         """*+
@@ -55,18 +65,30 @@ class Acciones:
         print('\nnombre:{}, valorInicial:{}, valorFinal:{}'.format(
             self.nombreAccion, self.valorInicial, self.valorFinal, ))
 
-    def __setitem__(self, indice, valor):
-        """*+
-        Setter del objeto acciones.
+    def set_nombre(self, nombre):
+        """
+        Setter del nombre de la acción
 
         Args:
-            indice (STR): Dato del objeto que se quiere modificar
-            valor (STR, INT): Valor nuevo que se quiere dar a ese objeto
+            nombre (STR): Nuevo nombre de la acción
         """
-        if indice == 'nombre':
-            self.nombreAccion = valor
-        elif indice == 'valorInicial':
-            self.valorInicial = valor
-        elif indice == 'valorFinal':
-            self.valorFinal = valor
+        self.nombreAccion = nombre
+
+    def set_valor_inicial(self, valor):
+        """
+        Setter del valor inicial
+
+        Args:
+            valor (INT): Nuevo valor inicial
+        """
+        self.valorInicial = valor
+
+    def set_valor_final(self, valor):
+        """
+        Setter del valor final
+
+        Args:
+            valor (INT): Nuevo valor final
+        """
+        self.valorFinal = valor
 
