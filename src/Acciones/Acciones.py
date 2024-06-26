@@ -73,7 +73,7 @@ class Acciones:
         Returns:
             INT: Diferencia entre el valor final y el valor inicial
         """
-        self.diferencia = self.calcular_diferencia()
+        self.diferencia = self.valorFinal - self.valorInicial
         return self.diferencia
 
     def set_nombre(self, nombre):
@@ -102,22 +102,3 @@ class Acciones:
             valor (INT): Nuevo valor final
         """
         self.valorFinal = valor
-    
-
-    def set_diferencia(self, valor):
-        """
-        Setter de la diferencia entre el valor final y el valor inicial
-
-        Returns:
-            INT: Diferencia entre el valor final y el valor inicial
-        """
-        self.diferencia = valor
-
-    def calcular_diferencia(self):
-        """
-        Calcula la diferencia entre el valor final y el valor inicial
-
-        Returns:
-            INT: Diferencia entre el valor final y el valor inicial
-        """
-        return self.valorFinal - self.valorInicial 
