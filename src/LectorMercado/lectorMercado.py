@@ -41,8 +41,7 @@ class lectorMercado:
             else:
                 Ficheros.escribirFichero(f"La accion {nombre} no existe\n", SEND, 'a')
     
-    @staticmethod
-    def obtenerValores(datosAciones, nombre:str):
+    def obtenerValores(self, datosAciones, nombre:str):
         """*+
         Funcion utilizada para la obtencion de los valores de las acciones
 
@@ -55,8 +54,7 @@ class lectorMercado:
         self.listaAcciones.set_valorInicial_accion(nombre,precioInicial)
         self.listaAcciones.set_valorFinal_accion(nombre,precioFinal)
     
-    @staticmethod
-    def escribirAcciones(datosAciones, nombre):
+    def escribirAcciones(self, datosAciones, nombre):
         """*+
         Funcion utilizada para la escritura de las acciones en un fichero
         """
