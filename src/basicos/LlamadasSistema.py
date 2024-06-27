@@ -23,17 +23,23 @@ class LlamadasSistema:
         return salida # Devolvemos la respuesta al comando ejecutado
 
     @staticmethod
-    def llamadaSistemaSudo(comando: str, contrasena):
-        """*+
-        Hace una llamada al sistema
+    def llamadaSistemaSudo(comando: str, contrasena: str) -> str:
+        """
+        Hace una llamada al sistema utilizando sudo.
 
         Args:
-            entrada (str): Comando que queremos ejecutar
-            contrasena (str): contraseña del sudo
+            comando (str): Comando que queremos ejecutar.
+            contrasena (str): Contraseña del sudo.
+
         Returns:
-            str: respuesta del comando ejecutado
+            str: Respuesta del comando ejecutado.
         """
-        Sudocomando='sudo '+ comando                
-        proc = subprocess.Popen(Sudocomando, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-        proc.stdin.write(contrasena.encode('utf-8'))
-        proc.stdin.close()
+        Sudocomando = f'echo {contrasena} | sudo -S {comando}'
+        proc = subprocess.Popen(Sudocomando, shell=True, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+        stdout, stderr = proc.communicate()
+
+        if proc.returncode != 0:
+            # Manejar el error si el comando falla
+            error_msg = f"Error al ejecutar el comando: {stderr}"
+            print(error_msg)
+            return error_msg
