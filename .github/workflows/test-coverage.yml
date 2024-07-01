@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: Ubuntu 20.04.6 LTS
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v3
