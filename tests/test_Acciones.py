@@ -1,6 +1,11 @@
 import unittest
 from src.Acciones.Acciones import Acciones
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+
+
 class TestAcciones(unittest.TestCase):
     def setUp(self):
         self.accion = Acciones("AAPL")
