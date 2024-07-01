@@ -32,8 +32,8 @@ jobs:
       run: |
         pytest --cov=src --cov-report xml:coverage.xml tests/
 
-    - name: Upload coverage report
-      uses: actions/upload-artifact@v2
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
       with:
-        name: coverage-report
-        path: coverage.xml
+        file: ./coverage.xml
+        fail_ci_if_error: true
