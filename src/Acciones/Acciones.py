@@ -29,8 +29,16 @@ class Acciones:
         # valor final
         self.valorFinal = 0
         
-        self.diferencia = self.valorFinal-self.valorInicial
-
+        # diferencia entre el valor final y el valor inicial
+        self.diferencia = 0
+    
+    def __str__(self):
+        """*+
+        Transforma a string los datos del objeto.
+        """
+        print('\nnombre:{}, valorInicial:{}, valorFinal:{}'.format(
+            self.nombreAccion, self.valorInicial, self.valorFinal, ))
+    
     def get_nombre(self):
         """
         Getter del nombre de la acción
@@ -57,13 +65,16 @@ class Acciones:
             INT: Valor final
         """
         return self.valorFinal
-
-    def __str__(self):
-        """*+
-        Transforma a string los datos del objeto.
+    
+    def get_diferencia(self):
         """
-        print('\nnombre:{}, valorInicial:{}, valorFinal:{}'.format(
-            self.nombreAccion, self.valorInicial, self.valorFinal, ))
+        Getter de la diferencia entre el valor final y el valor inicial
+
+        Returns:
+            INT: Diferencia entre el valor final y el valor inicial
+        """
+        self.diferencia = self.valorFinal - self.valorInicial
+        return self.diferencia
 
     def set_nombre(self, nombre):
         """
@@ -91,4 +102,3 @@ class Acciones:
             valor (INT): Nuevo valor final
         """
         self.valorFinal = valor
-

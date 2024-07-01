@@ -1,4 +1,5 @@
 import os
+import ast
 import time
 
 import os.path
@@ -58,8 +59,9 @@ class Ficheros:
         Returns:
             dict : diccionario con los ficheros necesarios para el bot
         """
+        
         with open(ENCRIPTADO, 'r') as f:
-            diccionario = eval(f.read())
+            diccionario = ast.literal_eval(f.read())
         return diccionario
     
     @staticmethod
@@ -227,7 +229,7 @@ class Ficheros:
         try:
             Ficheros.descifrarArchivo(path)
 
-            with open(texto, 'r') as f:
+            with open(path, 'r') as f:
                 datos = f.read()
             f.close()
 
@@ -236,7 +238,6 @@ class Ficheros:
             return datos
         except Exception as e:
             print(f'obtenerDatosArchivos-->\tError: {e}')
-            return None
 
     @staticmethod
     def encriptadoGeneral ():
