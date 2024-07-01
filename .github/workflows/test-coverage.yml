@@ -24,6 +24,10 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-cov
 
+    - name: Add src to PYTHONPATH
+      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+
+      
     - name: Run tests with coverage
       run: |
         pytest --cov=src --cov-report xml:coverage.xml tests/
