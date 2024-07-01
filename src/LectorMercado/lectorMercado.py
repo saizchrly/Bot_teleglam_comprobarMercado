@@ -33,26 +33,18 @@ class lectorMercado:
         for x in self.listaAcciones.acciones:
             
             nombre= x.get_nombre()
-            datosAciones = yf.download(nombre, period='1d')
-            if not datosAciones.empty:
+            datosAccion = yf.download(nombre, period='1d')
+            if not datosAccion.empty:
                 
-                self.obtenerValores(datosAciones, nombre)
-                self.escribirAcciones(datosAciones, nombre)     
+                valorInicial = round (datosAccion['Open'].values[0] ,2)
+                valorFinal = round ( datosAccion['Close'].values[0] ,2)
+                
+                self.listaAcciones.set_valorInicial_accion(nombre,valorInicial)
+                self.listaAcciones.set_valorFinal_accion(nombre,valorFinal)
+                
+                self.escribirAcciones(datosAccion, nombre)     
             else:
                 Ficheros.escribirFichero(f"La accion {nombre} no existe\n", SEND, 'a')
-    
-    def obtenerValores(self, datosAciones, nombre:str):
-        """*+
-        Funcion utilizada para la obtencion de los valores de las acciones
-
-        Args:
-            datosAciones (yf.download): Datos de las acciones
-            nombre (str): Nombre de la accion
-        """
-        precioInicial = round(datosAciones['Open'].values[0], 2)
-        precioFinal=round(datosAciones['Close'].values[0], 2)
-        self.listaAcciones.set_valorInicial_accion(nombre,precioInicial)
-        self.listaAcciones.set_valorFinal_accion(nombre,precioFinal)
     
     def escribirAcciones(self, datosAciones, nombre):
         """*+
