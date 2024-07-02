@@ -1,6 +1,4 @@
-[![codebeat badge](https://codebeat.co/badges/671e4983-43e3-42a2-814f-1add9beab322)](https://codebeat.co/projects/github-com-saizchrly-bot_teleglam_comprobarmercado-main)
-
-[![codecov](https://codecov.io/github/saizchrly/Bot_teleglam_comprobarMercado/graph/badge.svg?token=1HPB6YPI7A)](https://codecov.io/github/saizchrly/Bot_teleglam_comprobarMercado)
+[![codebeat badge](https://codebeat.co/badges/671e4983-43e3-42a2-814f-1add9beab322)](https://codebeat.co/projects/github-com-saizchrly-bot_teleglam_comprobarmercado-main)[![codecov](https://codecov.io/github/saizchrly/Bot_teleglam_comprobarMercado/graph/badge.svg?token=1HPB6YPI7A)](https://codecov.io/github/saizchrly/Bot_teleglam_comprobarMercado)
 
 # Bot Lector de Mercado
 Este es un bot de Telegram, desarrollado por el momento para ejecutarse en máquinas Linux, enfocado en la lectura de los datos de las acciones que el usuario ha introducido con anterioridad.
