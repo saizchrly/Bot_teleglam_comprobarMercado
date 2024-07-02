@@ -11,6 +11,8 @@ class TestFicheros(unittest.TestCase):
         with patch('builtins.open', mock_open(read_data=contenido_mock)) as mocked_open:
             self.ficheros.comprobarConfig()
             mocked_open.assert_called_with('./src/Configuracion/Encriptado_config.txt', 'w')
+            # Si necesitas verificar que se llamó a .read(), puedes hacerlo aquí
+            # mock_open().read.assert_called_once()
 
 
     def test_crearDiccionarioConfiguracion(self):
@@ -36,15 +38,10 @@ class TestFicheros(unittest.TestCase):
             acciones = self.ficheros.leerAcciones('./src/Configuracion/Acciones_config.txt')
             self.assertEqual(acciones, 'AAPL\nGOOGL\nTSLA\n')
 
-    def test_escribirFichero_Bot(self):
+    def test_escribirFichero(self):
         with patch('builtins.open') as mock_open:
             self.ficheros.escribirFichero('texto', './src/Configuracion/Bot_telegram.txt', 'w')
             mock_open.assert_called_with('./src/Configuracion/Bot_telegram.txt', 'w')
-    
-    def test_escribirFichero_help(self):
-        with patch('builtins.open') as mock_open:
-            self.ficheros.escribirFichero('texto', './src/Configuracion/Help_config.txt', 'w')
-            mock_open.assert_called_with('./src/Configuracion/Help_config.txt', 'w')
 
     def test_borrar_documento(self):
         with patch('os.path.exists') as mock_exists, patch('os.remove') as mock_remove:
@@ -61,11 +58,8 @@ class TestFicheros(unittest.TestCase):
             valor_que_debe_dar = (2021 + 12)*3
             valor_que_debe_dar = 1 if valor_que_debe_dar % 26 == 0 else valor_que_debe_dar % 26
             
-            try:
-                valor_retornado = self.ficheros.obtenerFechaCreacion('./src/Configuracion/Bot_telegram.txt')
-                self.assertEqual(valor_retornado, valor_que_debe_dar)
-            except Exception as e:
-                self.fail(f"Raised an exception: {e}")
+            valor_retornado = self.ficheros.obtenerFechaCreacion('./src/Configuracion/Bot_telegram.txt')
+            self.assertEqual(valor_retornado, valor_que_debe_dar)
 
     def test_cifrarArchivo(self):
         with patch('builtins.open') as mock_open, patch('src.basicos.Ficheros.Ficheros.obtenerFechaCreacion') as mock_fecha:
