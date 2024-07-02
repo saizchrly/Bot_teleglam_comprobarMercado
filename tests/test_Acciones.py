@@ -1,4 +1,6 @@
 import unittest
+from io import StringIO
+from unittest.mock import patch
 from src.Acciones.Acciones import Acciones
 
 
@@ -8,6 +10,12 @@ class TestAcciones(unittest.TestCase):
         self.accion.set_valor_inicial(100)
         self.accion.set_valor_final(120)
 
+    def test___str__(self):
+        expected_output = 'nombre:AAPL, valorInicial:100, valorFinal:120'
+        with patch('sys.stdout', new=StringIO()) as fake_output:
+            self.accion.__str__()
+            self.assertEqual(fake_output.getvalue().strip(), expected_output)
+        
     def test_get_nombre(self):
         self.assertEqual(self.accion.get_nombre(), "AAPL")
 
