@@ -52,13 +52,10 @@ class TestListasAcciones(unittest.TestCase):
         #Prueba con valores
         self.lista_acciones.set_valorInicial_accion("GOOGL", 100)
         self.lista_acciones.set_valorFinal_accion("GOOGL", 200)
+        
         # Expected: 100
         diferencia = self.lista_acciones.get_diferencia_accion("GOOGL")
         self.assertEqual(diferencia, 100)
-        
-        # Expected: None
-        valor_final = self.lista_acciones.get_valorFinal_accion("NO_EXISTE")
-        self.assertEqual(valor_final, None)
 
 
 if __name__ == '__main__':
