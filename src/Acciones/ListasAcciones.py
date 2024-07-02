@@ -109,4 +109,3 @@ class ListasAcciones:
         for x in self.acciones:
             if accion == x.nombreAccion:
                 return x.get_diferencia()
-        return None

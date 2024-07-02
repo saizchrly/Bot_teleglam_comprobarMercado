@@ -37,9 +37,3 @@ class LlamadasSistema:
         Sudocomando = f'echo {contrasena} | sudo -S {comando}'
         proc = subprocess.Popen(Sudocomando, shell=True, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
         stdout, stderr = proc.communicate()
-
-        if proc.returncode != 0:
-            # Manejar el error si el comando falla
-            error_msg = f"Error al ejecutar el comando: {stderr}"
-            print(error_msg)
-            return error_msg
