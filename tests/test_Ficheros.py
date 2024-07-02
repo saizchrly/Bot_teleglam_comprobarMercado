@@ -61,8 +61,11 @@ class TestFicheros(unittest.TestCase):
             valor_que_debe_dar = (2021 + 12)*3
             valor_que_debe_dar = 1 if valor_que_debe_dar % 26 == 0 else valor_que_debe_dar % 26
             
-            valor_retornado = self.ficheros.obtenerFechaCreacion('./src/Configuracion/Bot_telegram.txt')
-            self.assertEqual(valor_retornado, valor_que_debe_dar)
+            try:
+                valor_retornado = self.ficheros.obtenerFechaCreacion('./src/Configuracion/Bot_telegram.txt')
+                self.assertEqual(valor_retornado, valor_que_debe_dar)
+            except Exception as e:
+                self.fail(f"Raised an exception: {e}")
 
     def test_cifrarArchivo(self):
         with patch('builtins.open') as mock_open, patch('src.basicos.Ficheros.Ficheros.obtenerFechaCreacion') as mock_fecha:
